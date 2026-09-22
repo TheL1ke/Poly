@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4 Polly</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+background-color: #000;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+overflow: hidden;
+font-family: Arial, sans-serif;
+}
+#ui { position: relative; width: 300px; height: 300px; margin-bottom: 20px; }
+#ui .love_word {
+position: absolute;
+top: 50%;
+left: 50%;
+color: #ea80b0;
+font-size: 14px;
+transform: translate(-50%, -50%) rotateZ(-30deg);
+text-shadow: 0 0 8px #fff;
+letter-spacing: 1px;
+white-space: nowrap;
+}
+#ui .love_horizontal {
+animation: horizontal 6s linear infinite alternate ease-in-out;
+animation-delay: calc(var(--i) * -100ms);
+}
+@keyframes horizontal {
+0% { transform: translate(-50%, -50%) translateX(-60px) rotateZ(-30deg); }
+100% { transform: translate(-50%, -50%) translateX(60px) rotateZ(-30deg); }
+}
+.polly-text {
+color: #ea80b0;
+font-size: 40px;
+font-weight: bold;
+text-shadow: 0 0 15px #ea80b0, 0 0 30px #ea80b0;
+letter-spacing: 4px;
+margin-top: 10px;
+text-align: center;
+}
+</style>
+</head>
+<body>
+<div id="ui">
+<script>
+const container = document.getElementById('ui');
+const text = "I love you";
+const count = 80;
+for (let i = 0; i < count; i++) {
+const t = (i / count) * Math.PI * 2;
+const x = 16 * Math.pow(Math.sin(t), 3);
+const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+const posX = x * 7;
+const posY = y * 7;
+const angle = Math.atan2(y, x) * (180 / Math.PI) + 90;
+const span = document.createElement('span');
+span.className = 'love_word love_horizontal';
+span.innerText = text;
+span.style.left = `calc(50% + px)`;
+span.style.top = `calc(50% + px)`;
+span.style.transform = `translate(-50%, -50%) rotate(deg)`;
+span.style.setProperty('--i', i);
+container.appendChild(span);
+}
+</script>
+</div>
+<div class="polly-text">4 Polly</div>
+</body>
+</html>
